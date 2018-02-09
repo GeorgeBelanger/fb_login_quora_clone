@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @answer.user %>
+</p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @answer.question %>
+</p>
+
+<p>
+  <strong>Vote score:</strong>
+  <%= @answer.vote_score %>
+</p>
+
+<p>
+  <strong>Up vote:</strong>
+  <%= @answer.up_vote %>
+</p>
+
+<p>
+  <strong>Down vote:</strong>
+  <%= @answer.down_vote %>
+</p>
+
+<p>
+  <strong>Answer context:</strong>
+  <%= @answer.answer_context %>
+</p>
+
+<p>
+  <strong>Answer body:</strong>
+  <%= @answer.answer_body %>
+</p>
+
+<%= link_to 'Edit', edit_answer_path(@answer) %> |
+<%= link_to 'Back', answers_path %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @question.user %>
+</p>
+
+<p>
+  <strong>Vote score:</strong>
+  <%= @question.vote_score %>
+</p>
+
+<p>
+  <strong>Up vote:</strong>
+  <%= @question.up_vote %>
+</p>
+
+<p>
+  <strong>Down vote:</strong>
+  <%= @question.down_vote %>
+</p>
+
+<p>
+  <strong>Num answers:</strong>
+  <%= @question.num_answers %>
+</p>
+
+<p>
+  <strong>Question title:</strong>
+  <%= @question.question_title %>
+</p>
+
+<p>
+  <strong>Question body:</strong>
+  <%= @question.question_body %>
+</p>
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', questions_path %>

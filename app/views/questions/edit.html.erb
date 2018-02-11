@@ -1,6 +1,12 @@
 <h1>Editing Question</h1>
+<% if current_user == nil%>
+	<%= p 'You are not logged in' %>
+<% elsif @question.user["id"] == current_user["id"] %>
+	<%= render 'form', question: @question %>
 
-<%= render 'form', question: @question %>
-
-<%= link_to 'Show', @question %> |
-<%= link_to 'Back', questions_path %>
+	<%= link_to 'Show', @question %> |
+	<%= link_to 'Back', questions_path %>
+<% else %>
+	<%= p 'You did not ask this question and cannot edit it' %>
+	<%= link_to 'Back', questions_path %>
+<% end %>

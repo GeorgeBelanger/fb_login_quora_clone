@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = Question.new(user_id: current_user[:id], vote_score: 0, up_vote: 0, down_vote: 0, num_answers: 0, question_title: question_params[:question_title], question_body: question_params[:question_body])
 
     respond_to do |format|
       if @question.save
@@ -54,12 +54,29 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
-    @question.destroy
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+      @question.destroy
+      respond_to do |format|
+        format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+        format.json { head :no_content }
+      end
   end
+
+  def upvote
+    @question = Question.find(params[:id])
+    @question.up_vote += 1
+    @question.vote_score += 1
+    @question.save
+    redirect_to(questions_path)
+  end
+
+  def downvote
+    @question = Question.find(params[:id])
+    @question.down_vote -= 1
+    @question.vote_score -= 1
+    @question.save
+    redirect_to(questions_path)
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +86,7 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
+
       params.require(:question).permit(:user_id, :vote_score, :up_vote, :down_vote, :num_answers, :question_title, :question_body)
     end
 end

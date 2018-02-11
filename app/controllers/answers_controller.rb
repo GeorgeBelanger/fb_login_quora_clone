@@ -15,6 +15,7 @@ class AnswersController < ApplicationController
   # GET /answers/new
   def new
     @answer = Answer.new
+    @@question = Question.find(params['format'])
   end
 
   # GET /answers/1/edit
@@ -24,7 +25,9 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(answer_params)
+    @answer = Answer.new(user_id: current_user[:id], question_id: @@question.id, vote_score: 0, up_vote: 0, down_vote: 0, answer_context: answer_params[:answer_context], answer_body: answer_params[:answer_body])
+    @@question.num_answers += 1
+    @@question.save
 
     respond_to do |format|
       if @answer.save
@@ -54,11 +57,29 @@ class AnswersController < ApplicationController
   # DELETE /answers/1
   # DELETE /answers/1.json
   def destroy
+    @@question.num_answers -= 1
+    @@question.save
     @answer.destroy
     respond_to do |format|
       format.html { redirect_to answers_url, notice: 'Answer was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upvote
+    @answer = Answer.find(params[:id])
+    @answer.up_vote += 1
+    @answer.vote_score += 1
+    @answer.save
+    redirect_to(questions_path)
+  end
+
+  def downvote
+    @answer = Answer.find(params[:id])
+    @answer.down_vote -= 1
+    @answer.vote_score -= 1
+    @answer.save
+    redirect_to(questions_path)
   end
 
   private

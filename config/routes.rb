@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
-  resources :answers
-  resources :questions
+  resources :answers do
+	  member do
+	    post 'upvote'
+	    post 'downvote'
+	  end
+	end
+  resources :questions  do
+	  member do
+	    post 'upvote'
+	    post 'downvote'
+	  end
+	end
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users
   

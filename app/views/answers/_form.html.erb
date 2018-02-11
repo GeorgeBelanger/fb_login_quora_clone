@@ -47,7 +47,16 @@
     <%= f.text_area :answer_body %>
   </div>
 
+  <%# f.params['format'] :question_id %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
+
+ <!-- 
+  <%= p params['format'] %>
+
+  <% @question = Question.find(params["format"])%>
+  <%= @question.user.name  %>
+   -->
 <% end %>

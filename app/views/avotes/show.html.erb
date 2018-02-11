@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Upvote:</strong>
+  <%= @avote.upvote %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @avote.user %>
+</p>
+
+<p>
+  <strong>Answer:</strong>
+  <%= @avote.answer %>
+</p>
+
+<%= link_to 'Edit', edit_avote_path(@avote) %> |
+<%= link_to 'Back', avotes_path %>

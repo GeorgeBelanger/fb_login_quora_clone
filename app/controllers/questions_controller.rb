@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = Question.all.order(:vote_score).reverse
   end
 
   # GET /questions/1
@@ -60,23 +60,6 @@ class QuestionsController < ApplicationController
         format.json { head :no_content }
       end
   end
-
-  def upvote
-    @question = Question.find(params[:id])
-    @question.up_vote += 1
-    @question.vote_score += 1
-    @question.save
-    redirect_to(questions_path)
-  end
-
-  def downvote
-    @question = Question.find(params[:id])
-    @question.down_vote -= 1
-    @question.vote_score -= 1
-    @question.save
-    redirect_to(questions_path)
-  end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

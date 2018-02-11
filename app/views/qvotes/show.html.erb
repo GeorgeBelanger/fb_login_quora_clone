@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Upvote:</strong>
+  <%= @qvote.upvote %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @qvote.user %>
+</p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @qvote.question %>
+</p>
+
+<%= link_to 'Edit', edit_qvote_path(@qvote) %> |
+<%= link_to 'Back', qvotes_path %>

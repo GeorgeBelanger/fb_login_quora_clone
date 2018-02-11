@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Avotes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Upvote</th>
+      <th>User</th>
+      <th>Answer</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @avotes.each do |avote| %>
+      <tr>
+        <td><%= avote.upvote %></td>
+        <td><%= avote.user.id %></td>
+        <td><%= avote.answer.id %></td>
+        <td><%= link_to 'Show', avote %></td>
+        <td><%= link_to 'Edit', edit_avote_path(avote) %></td>
+        <td><%= link_to 'Destroy', avote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Avote', new_avote_path %>

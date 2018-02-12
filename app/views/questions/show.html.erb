@@ -37,15 +37,18 @@
 
 <ul>
 <% Answer.where(question_id: params[:id]).each do |x| %>
-<p><%= x.user.name %> <%= x.answer_context%> answered on <%= p x.created_at.to_date %></p> 
-<li><p><%= x.answer_body %></p></li> 
+<li><p><strong><%= x.user.name %></strong> <i><%= x.answer_context%></i>  :<%= p x.created_at.to_date %></p>
+<p><%= x.answer_body %></p></li> 
+<% if x.user["id"] == current_user["id"] %>
+<%= link_to 'Edit', edit_answer_path(x,@question) %>
+<% end %>
 <p>Vote score <%= x.vote_score %></p>
   
 <% if Avote.all.include?Avote.find_by(answer_id: x.id, user_id: current_user[:id], upvote:1)%> <%= p 'you already upvoted this answer'%><% end%>
-<%= button_to 'Upvote', upvote_avote_path(x), method: :post %>
+<%= button_to 'Upvote', upvote_avote_path(x), method: :post %><%= button_to 'Downvote', downvote_avote_path(x), method: :post %>
 
 <% if Avote.all.include?Avote.find_by(answer_id: x.id, user_id: current_user[:id], upvote:0)%> <%= p 'you already downvoted this answer'%><% end%>
-<%= button_to 'Downvote', downvote_avote_path(x), method: :post %>
+
  <br/>
 <% end %>
 </ul>

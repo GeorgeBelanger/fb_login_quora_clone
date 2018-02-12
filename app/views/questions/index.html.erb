@@ -1,14 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Questions</h1>
+<div class="header"><h1>Questions</h1></div>
 
 <table>
   <thead>
     <tr>
       <th>User name</th>
       <th>Vote score</th>
-      <th>Up vote</th>
-      <th>Down vote</th>
       <th>Num answers</th>
       <th>Question title</th>
       <th>Question body</th>
@@ -17,13 +15,12 @@
   </thead>
 
   <tbody>
+
     <% @questions.each do |question| %>
       <% user = question.user %>
       <tr>
         <td><%= user[:name] %></td>
         <td><%= question.vote_score %></td>
-        <td><%= question.up_vote %></td>
-        <td><%= question.down_vote %></td>
         <td><%= question.num_answers %></td>
         <td><%= question.question_title %></td>
         <td><%= question.question_body %></td>

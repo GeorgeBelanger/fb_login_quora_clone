@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @answer.user.name %>
+</p>
+
+<p>
+  <strong>Question title:</strong>
+  <%= @answer.question.question_title %>
+</p>
+
+<p>
+  <strong>Question body:</strong>
+  <%= @answer.question.question_body %>
+</p>
+
+<p>
+  <strong>Vote score:</strong>
+  <%= @answer.vote_score %>
+</p>
+
+<p>
+  <strong>Up vote:</strong>
+  <%= @answer.up_vote %>
+</p>
+
+<p>
+  <strong>Down vote:</strong>
+  <%= @answer.down_vote %>
+</p>
+
+<p>
+  <strong>Answer context:</strong>
+  <%= @answer.answer_context %>
+</p>
+
+<p>
+  <strong>Answer body:</strong>
+  <%= @answer.answer_body %>
+</p>
+
+        <% if current_user == nil%>
+
+        <% elsif @answer.user["id"] == current_user["id"] %> 
+          <%= link_to 'Edit', edit_answer_path(@answer) %> |
+          <%= link_to 'Back', questions_path %>
+        <%else%>
+        <%= link_to 'Back', questions_path %>
+        <% end %>

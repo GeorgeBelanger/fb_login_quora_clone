@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @question.user["name"] %>
+</p>
+
+<p>
+  <strong>Vote score:</strong>
+  <%= @question.vote_score %>
+</p>
+
+<p>
+  <strong>Up vote:</strong>
+  <%= @question.up_vote %>
+</p>
+
+<p>
+  <strong>Down vote:</strong>
+  <%= @question.down_vote %>
+</p>
+
+<p>
+  <strong>Num answers:</strong>
+  <%= @question.num_answers %>
+</p>
+
+<p>
+  <strong>Question title:</strong>
+  <%= @question.question_title %>
+</p>
+
+<p>
+  <strong>Question body:</strong>
+  <%= @question.question_body %>
+</p>
+
+<ul>
+<% Answer.where(question_id: params[:id]).each do |x| %>
+<li><p><strong><%= x.user.name %></strong> <i><%= x.answer_context%></i>  :<%= p x.created_at.to_date %></p>
+<p><%= x.answer_body %></p></li> 
+<% if x.user["id"] == current_user["id"] %>
+<%= link_to 'Edit', edit_answer_path(x,@question) %>
+<% end %>
+<p>Vote score <%= x.vote_score %></p>
+  
+<% if Avote.all.include?Avote.find_by(answer_id: x.id, user_id: current_user[:id], upvote:1)%> <%= p 'you already upvoted this answer'%><% end%>
+<%= button_to 'Upvote', upvote_avote_path(x), method: :post %><%= button_to 'Downvote', downvote_avote_path(x), method: :post %>
+
+<% if Avote.all.include?Avote.find_by(answer_id: x.id, user_id: current_user[:id], upvote:0)%> <%= p 'you already downvoted this answer'%><% end%>
+
+ <br/>
+<% end %>
+</ul>
+        <% if current_user == nil%>
+
+        <% elsif @question.user["id"] == current_user["id"] %> 
+          <%= link_to 'Edit', edit_question_path(@question) %> |
+          <%= link_to 'Back', questions_path %>
+        <%else%>
+        <%= link_to 'Back', questions_path %>
+        <% end %>
+
